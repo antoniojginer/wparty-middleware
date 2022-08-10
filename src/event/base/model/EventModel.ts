@@ -13,7 +13,7 @@ export interface BaseEvent {
     organizerType: number;
     organizer: Organizer;
     location: Location;
-    totalAssistants?: number;
+    assistance?: number;
 }
 
 export interface Organizer {

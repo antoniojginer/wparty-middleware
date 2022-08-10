@@ -1,10 +1,11 @@
 import axios from "axios";
-import { getCacheUrl } from "../../../helpers/http.helper.service";
+import { getBackendBaseUrl, getCacheUrl } from "../../../helpers/http.helper.service";
 
-const baseUrl = getCacheUrl();
+const cacheBaseUrl = getCacheUrl();
+
 
 export const getEventById = (id) => {
-    axios.get(`${baseUrl}/${id}`).then(res => {
+    axios.get(`${cacheBaseUrl}/${id}`).then(res => {
         // TODO
         return res;
     }).catch(error => {

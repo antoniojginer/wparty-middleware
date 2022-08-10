@@ -1,0 +1,8 @@
+import { BaseEvent } from "../../base/model/EventModel";
+
+export interface PartyEvent extends BaseEvent {
+    diskJockeys?: string[];
+    assistants?: string[];
+    partyTypeId: number;
+    partyTypeName: string;
+}
