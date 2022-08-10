@@ -1,5 +1,4 @@
-
-
+import { BaseEvent } from "../model/EventModel"
 
 export class EventService {
 
@@ -11,6 +10,6 @@ export class EventService {
         return {
             id,
             name: 'Hello'
-        }
+        } as BaseEvent;
     }
 }
