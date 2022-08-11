@@ -8,7 +8,7 @@ const port = 3000;
 app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.send('Hello world!');
 });
 

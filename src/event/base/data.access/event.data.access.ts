@@ -16,10 +16,11 @@ export const getEventById = (id) => {
 }
 
 export const saveEvent = (event: BaseEvent, id: number) => {
-    console.log('cacheBaseUrl:', cacheBaseUrl);
     return axios.put(`${cacheBaseUrl}/_doc/${id}`, event);
 }
 
-export const findAll = () => {
-    return axios.get(`${getBackendBaseUrl()}/event`);
+export const findAllEvents = (params) => {
+    return axios.get<any>(`${cacheBaseUrl}/_search`, {
+        params: params
+    });
 }

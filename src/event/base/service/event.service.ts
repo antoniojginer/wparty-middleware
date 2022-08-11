@@ -1,4 +1,4 @@
-import { findAll, saveEvent } from "../data.access/event.data.access";
+import { findAllEvents, saveEvent } from "../data.access/event.data.access";
 import { BaseEvent } from "../model/EventModel"
 
 export class EventService {
@@ -7,16 +7,10 @@ export class EventService {
         // TODO
     }
 
-    findById = (id: number) => {
-        return {
-            id,
-            name: 'Hello'
-        } as BaseEvent;
-    }
-
-    findAll = async () => {
-        let { data: allEvents } = await findAll();
-        return allEvents;
+    findAll = async (params) => {
+        const searchFilters = this.buildSearchFilters(params);
+        let { data: response } = await findAllEvents(searchFilters);
+        return this.buildGetAllEventsResponse(response);
     }
 
     save = async (request: BaseEvent, id: number) => {
@@ -29,6 +23,25 @@ export class EventService {
 
     private performSaveEvent = (request: BaseEvent, id: number) => {
         return saveEvent(request, id);
+    }
+
+    private buildSearchFilters = (params?: any) => {
+        if (!params) {
+            return {
+                'query' : {
+                    'match_all' : {}
+                }
+            }
+        }
+        // TODO
+    }
+
+    private buildGetAllEventsResponse = (res) => {
+        let events = [];
+        res?.hits?.hits.forEach(event => {
+            events.push(event._source);
+        });
+        return events;
     }
 
 }
