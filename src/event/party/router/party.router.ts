@@ -10,3 +10,8 @@ partyEventRouter.get('/:id', async (req, res) => {
     let partyEventDetail = await partyEventService.findById(Number(id));
     res.json(partyEventDetail);
 });
+
+partyEventRouter.post('/', async (req, res) => {
+    let result = await partyEventService.save(req.body);
+    res.json(result);
+});

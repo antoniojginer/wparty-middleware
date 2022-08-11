@@ -9,3 +9,8 @@ eventRouter.get('/:id', (req, res) => {
     eventService.findById(Number(id));
     res.json(eventService.findById(Number(id)));
 });
+
+eventRouter.get('', (req, res) => {
+    let allEvents = eventService.findAll();
+    res.json(allEvents);
+});
