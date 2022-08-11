@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getBackendBaseUrl } from "../../../helpers/http.helper.service"
+import { AssistantEvent } from "../../base/model/EventModel";
 import { PartyEvent } from "../model/PartyEventModel";
 
 
@@ -15,4 +16,8 @@ export const getPartyEventAssistance = (eventId: number) => {
 
 export const savePartyEvent = (request: PartyEvent) => {
     return axios.put<PartyEvent>(`${baseUrl}`, { ...request });
+}
+
+export const addAssistantToPartyEvent = (request: AssistantEvent) => {
+    return axios.put<AssistantEvent>(`${baseUrl}/assistant`, request);
 }

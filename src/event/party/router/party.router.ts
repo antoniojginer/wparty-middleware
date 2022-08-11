@@ -13,5 +13,10 @@ partyEventRouter.get('/:id', async (req, res) => {
 
 partyEventRouter.post('/', async (req, res) => {
     let result = await partyEventService.save(req.body);
-    res.json(result);
+    res.status(201).json(result);
+});
+
+partyEventRouter.post('/assistant', async (req, res) => {
+    let result = await partyEventService.addAssistantToEvent(req.body);
+    res.status(201).json(result);
 });

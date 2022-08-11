@@ -1,4 +1,5 @@
 import axios from "axios";
+import { buildUpdateRequest } from "../../../helpers/elastic.helper.service";
 import { getBackendBaseUrl, getCacheUrl } from "../../../helpers/http.helper.service";
 import { BaseEvent } from "../model/EventModel";
 
@@ -23,4 +24,13 @@ export const findAllEvents = (params) => {
     return axios.get<any>(`${cacheBaseUrl}/_search`, {
         params: params
     });
+}
+
+export const findEventById = (id: number) => {
+    return axios.get<BaseEvent>(`${cacheBaseUrl}/_source/${id}`);
+}
+
+export const updateAssistance = (assistance: number, eventId: number) => {
+    let request = buildUpdateRequest({assistance: assistance });
+    return axios.post<any>(`${cacheBaseUrl}/_update/${eventId}`, request);
 }
