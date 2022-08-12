@@ -18,9 +18,8 @@ export class EventService {
         }
     }
 
-    findAll = async (params) => {
-        const searchFilters = this.buildSearchFilters(params);
-        let { data: response } = await findAllEvents(searchFilters);
+    findAll = async (params?: any) => {
+        let { data: response } = await findAllEvents();
         return this.buildGetAllEventsResponse(response);
     }
 
@@ -50,17 +49,6 @@ export class EventService {
 
     private performUpdateAssistance = (assistance: number, eventId: number) => {
         return updateAssistance(assistance, eventId);
-    }
-
-    private buildSearchFilters = (params?: any) => {
-        if (!params) {
-            return {
-                'query' : {
-                    'match_all' : {}
-                }
-            }
-        }
-        // TODO
     }
 
     private buildGetAllEventsResponse = (res) => {
