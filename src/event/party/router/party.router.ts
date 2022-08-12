@@ -20,3 +20,8 @@ partyEventRouter.post('/assistant', async (req, res) => {
     let result = await partyEventService.addAssistantToEvent(req.body);
     res.status(201).json(result);
 });
+
+partyEventRouter.delete('/assistant', async (req, res) => {
+    await partyEventService.deleteAssistantToEvent(req.body);
+    res.status(200).send();
+});

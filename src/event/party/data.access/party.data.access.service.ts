@@ -21,3 +21,9 @@ export const savePartyEvent = (request: PartyEvent) => {
 export const addAssistantToPartyEvent = (request: AssistantEvent) => {
     return axios.put<AssistantEvent>(`${baseUrl}/assistant`, request);
 }
+
+export const deleteAssistantToPartyEvent = (request: AssistantEvent) => {
+    return axios.delete(`${baseUrl}/assistant`, {
+        data: request
+    });
+}

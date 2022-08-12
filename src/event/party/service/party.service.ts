@@ -1,6 +1,7 @@
+import { request } from "http";
 import { AssistantEvent, BaseEvent } from "../../base/model/EventModel";
 import { EventService } from "../../base/service/event.service";
-import { addAssistantToPartyEvent, getPartyEventAssistance, getPartyEventById, savePartyEvent } from "../data.access/party.data.access.service";
+import { addAssistantToPartyEvent, deleteAssistantToPartyEvent, getPartyEventAssistance, getPartyEventById, savePartyEvent } from "../data.access/party.data.access.service";
 import { PartyEvent } from "../model/PartyEventModel";
 
 const eventService = new EventService();
@@ -33,11 +34,19 @@ export class PartyEventService {
         try {
             let { data: response } = await this.performAddAssistantToEvent(request);
             if (response) {
-                let { data: assistance } = await this.performGetAssistance(request.eventId);
-                eventService.updateAssistance(assistance, request.eventId);
+                this.updateAssistanceToEvent(request.eventId);
             }
             return response;
         } catch(err) {
+            console.log(err);
+        }
+    }
+
+    deleteAssistantToEvent = async (request: AssistantEvent) => {
+        try {
+            await this.performDeleteAssistantToEvent(request);
+            this.updateAssistanceToEvent(request.eventId);
+        } catch (err) {
             console.log(err);
         }
     }
@@ -56,6 +65,15 @@ export class PartyEventService {
 
     private performAddAssistantToEvent = (request: AssistantEvent) => {
         return addAssistantToPartyEvent(request);
+    }
+
+    private performDeleteAssistantToEvent = (request: AssistantEvent) => {
+        return deleteAssistantToPartyEvent(request);
+    }
+
+    private updateAssistanceToEvent = async (eventId: number) => {
+        let { data: assistance } = await this.performGetAssistance(eventId);
+        eventService.updateAssistance(assistance, eventId);
     }
 
 }
